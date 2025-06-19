@@ -1,5 +1,0 @@
-.env
-GitHubScraper_vectordb_works.py
-code_embeddings_db/
-chroma_db/
-app/__pycache__/
