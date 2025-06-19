@@ -127,7 +127,7 @@ See related projects and guides for further reading.
 
 # GitHub RAG Chatbot
 
-A production-ready, conversational Retrieval-Augmented Generation (RAG) system that transforms any GitHub repository into an intelligent chatbot. Built with LangGraph workflows, ChromaDB vector storage, and GPT-4o mini for natural conversations about codebases.
+A conversational Retrieval-Augmented Generation (RAG) system that transforms any GitHub repository into an intelligent chatbot. Built with LangGraph workflows, ChromaDB vector storage, and GPT-4o mini for natural conversations about codebases.
 
 ## 🚀 Features
 
@@ -187,7 +187,7 @@ A production-ready, conversational Retrieval-Augmented Generation (RAG) system t
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/yourusername/rag_github_app.git
+   git clone https://github.com/BenLus/Github_Repo_Chatbot.git
    cd rag_github_app
    ```
 
@@ -254,9 +254,6 @@ rag_github_app/
 │   ├── chunker.py           # Intelligent code chunking strategies
 │   ├── embedder.py          # OpenAI embedding generation
 │   ├── vector_store.py      # ChromaDB interface and management
-├── tests/
-│   ├── __init__.py
-│   └── test_app.py          # Comprehensive test suite
 ├── chroma_db/               # ChromaDB persistent storage (auto-created)
 ├── requirements.txt         # Python dependencies
 ├── .env                     # Environment configuration
@@ -295,60 +292,9 @@ rag_github_app/
 - **Retrieval Count**: Number of similar chunks retrieved (default: 5)
 - **Context Window**: Conversation history length (default: last 3 exchanges)
 
-## 🤝 Contributing
-
-We welcome contributions! Here's how to get started:
-
-### Development Setup
-
-1. Fork and clone the repository
-2. Create a virtual environment: `python -m venv venv`
-3. Install development dependencies: `pip install -r requirements.txt`
-4. Run tests: `python -m pytest tests/`
-
-### Contribution Guidelines
-
-- **Code Quality**: Follow PEP 8 style guidelines
-- **Documentation**: Update docstrings and README for new features
-- **Testing**: Add tests for new functionality
-- **Issues**: Use GitHub issues for bug reports and feature requests
-
-### Areas for Contribution
-
-- **Additional Code Languages**: Expand language-specific chunking strategies
-- **Advanced RAG Techniques**: Implement hybrid search, reranking, or query expansion
-- **UI Enhancements**: Add visualization of code structure or embedding clusters
-- **Performance Optimization**: Improve processing speed and memory usage
-
-## 🔧 Troubleshooting
-
-### Common Issues
-
-**Repository Processing Fails**:
-- Verify the GitHub URL is correct and the repository is public
-- Check your internet connection and GitHub API rate limits
-- Ensure OpenAI API key is valid and has sufficient credits
-
-**Chat Not Working**:
-- Confirm the repository was processed successfully
-- Check OpenAI API key permissions and rate limits
-- Verify ChromaDB directory is writable
-
-**Performance Issues**:
-- Large repositories may take several minutes to process
-- Consider using a GitHub token to avoid rate limiting
-- Ensure sufficient disk space for ChromaDB storage
-
 ## 📄 License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for complete details.
-
-## 🙏 Acknowledgments
-
-- **LangGraph**: For providing robust agent workflow orchestration
-- **ChromaDB**: For efficient vector storage and retrieval
-- **Streamlit**: For enabling rapid UI development
-- **OpenAI**: For state-of-the-art embeddings and language models
 
 ## 🔗 Related Resources
 
