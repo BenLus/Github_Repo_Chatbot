@@ -125,7 +125,7 @@ See related projects and guides for further reading.
  -->
 
 
-# GitHub RAG Chatbot
+# Github Repo Chatbot
 
 A conversational Retrieval-Augmented Generation (RAG) system that transforms any GitHub repository into an intelligent chatbot. Built with LangGraph workflows, ChromaDB vector storage, and GPT-4o mini for natural conversations about codebases.
 
