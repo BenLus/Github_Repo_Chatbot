@@ -18,7 +18,7 @@ class CodeChunker:
         """
         self.max_chunk_size = max_chunk_size
         self.chunk_overlap = chunk_overlap
-        self.encoding = tiktoken.get_encoding("cl100k_base")  # GPT-4 tokenizer
+        self.encoding = tiktoken.get_encoding("o200k_base")  # GPT-4o mini tokenizer
 
     def count_tokens(self, text):
         """

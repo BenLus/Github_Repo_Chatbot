@@ -10,49 +10,6 @@ import streamlit as st
 from agent import build_graph, create_chat_only_state
 import time
 
-# Page configuration
-st.set_page_config(
-    page_title="GitHub RAG Chatbot",
-    page_icon="🤖",
-    layout="wide",
-    initial_sidebar_state="expanded"
-)
-
-# Custom CSS for better styling
-st.markdown("""
-<style>
-    .main-header {
-        text-align: center;
-        padding: 1rem 0;
-        border-bottom: 2px solid #f0f0f0;
-        margin-bottom: 2rem;
-    }
-    .status-success {
-        padding: 1rem;
-        border-radius: 0.5rem;
-        background-color: #d4edda;
-        border: 1px solid #c3e6cb;
-        color: #155724;
-        margin: 1rem 0;
-    }
-    .status-error {
-        padding: 1rem;
-        border-radius: 0.5rem;
-        background-color: #f8d7da;
-        border: 1px solid #f5c6cb;
-        color: #721c24;
-        margin: 1rem 0;
-    }
-    .chat-container {
-        max-height: 600px;
-        overflow-y: auto;
-        padding: 1rem;
-        border: 1px solid #ddd;
-        border-radius: 0.5rem;
-        background-color: #fafafa;
-    }
-</style>
-""", unsafe_allow_html=True)
 
 # Initialize session state
 def initialize_session_state():
@@ -195,6 +152,50 @@ def handle_chat_query(query):
 
 # Main app
 def main():
+    # Page configuration
+    st.set_page_config(
+        page_title="GitHub RAG Chatbot",
+        page_icon="🤖",
+        layout="wide",
+        initial_sidebar_state="expanded"
+    )
+
+    # Custom CSS for better styling
+    st.markdown("""
+    <style>
+        .main-header {
+            text-align: center;
+            padding: 1rem 0;
+            border-bottom: 2px solid #f0f0f0;
+            margin-bottom: 2rem;
+        }
+        .status-success {
+            padding: 1rem;
+            border-radius: 0.5rem;
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+            margin: 1rem 0;
+        }
+        .status-error {
+            padding: 1rem;
+            border-radius: 0.5rem;
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+            margin: 1rem 0;
+        }
+        .chat-container {
+            max-height: 600px;
+            overflow-y: auto;
+            padding: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 0.5rem;
+            background-color: #fafafa;
+        }
+    </style>
+    """, unsafe_allow_html=True)
+
     initialize_session_state()
     
     # Header
@@ -216,30 +217,32 @@ def main():
                 reset_session()
                 st.rerun()
         
-        st.markdown("---")
-        
-        # Repository URL input
-        repo_url = st.text_input(
-            "GitHub Repository URL:",
-            value=st.session_state.current_state.get("repo_url", ""),
-            placeholder="https://github.com/owner/repo",
-            help="Enter a valid GitHub repository URL"
-        )
-        
-        # Process repository button
-        if st.button("🚀 Process Repository", use_container_width=True, disabled=st.session_state.processing):
-            if repo_url:
-                st.session_state.processing = True
-                success = process_repository(repo_url)
-                st.session_state.processing = False
-                if success:
-                    st.rerun()
-            else:
-                st.error("Please enter a repository URL")
-        
-        # Show processing status
-        if st.session_state.processing:
-            st.warning("⏳ Processing in progress...")
+        else:
+            # Only show repository input and process button if no repository is processed
+            st.markdown("---")
+            
+            # Repository URL input
+            repo_url = st.text_input(
+                "GitHub Repository URL:",
+                value=st.session_state.current_state.get("repo_url", ""),
+                placeholder="https://github.com/owner/repo",
+                help="Enter a valid GitHub repository URL"
+            )
+            
+            # Process repository button
+            if st.button("🚀 Process Repository", use_container_width=True, disabled=st.session_state.processing):
+                if repo_url:
+                    st.session_state.processing = True
+                    success = process_repository(repo_url)
+                    st.session_state.processing = False
+                    if success:
+                        st.rerun()
+                else:
+                    st.error("Please enter a repository URL")
+            
+            # Show processing status
+            if st.session_state.processing:
+                st.warning("⏳ Processing in progress...")
     
     # Main content area
     col1, col2 = st.columns([3, 1])
@@ -293,42 +296,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-# """
-# main.py
-
-# Streamlit UI for the RAG GitHub application.
-# - Step 1: User enters a GitHub repo URL.
-# - Step 2: Repo is processed (crawled, chunked, embedded, indexed).
-# - Step 3: User can chat with the codebase using GPT-4o mini.
-# """
-
-# import streamlit as st
-# from app.agent import build_graph
-
-# st.title("GitHub RAG Chatbot")
-
-# # Initialize LangGraph agent and state in session
-# if "graph" not in st.session_state:
-#     st.session_state.graph = build_graph()
-# if "state" not in st.session_state:
-#     st.session_state.state = {"repo_url": "", "chat_history": []}
-
-# # Step 1: Input GitHub repo URL
-# repo_url = st.text_input("Enter GitHub repository URL:", value=st.session_state.state.get("repo_url", ""))
-# if st.button("Process Repository"):
-#     st.session_state.state["repo_url"] = repo_url
-#     result = st.session_state.graph.invoke(st.session_state.state)
-#     if not result.get("valid", True):
-#         st.error(result.get("error", "Unknown error"))
-#     else:
-#         st.success("Repository processed and indexed!")
-
-# # Step 2: Chat interface (after successful processing)
-# if "collection_name" in st.session_state.state:
-#     st.subheader("Ask questions about the codebase:")
-#     user_query = st.chat_input("Type your question...")
-#     if user_query:
-#         st.session_state.state["chat_history"].append({"role": "user", "content": user_query})
-#         result = st.session_state.graph.invoke(st.session_state.state)
-#         st.chat_message("assistant").write(result["answer"])

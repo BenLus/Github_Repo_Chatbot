@@ -110,7 +110,7 @@ def process_repo_node(state):
         code_files = [f for f in files] #Include also files which are not code: README.md and so on
 
         if not code_files:
-            return {"error": "No code files found in the repository", "valid": False}
+            return {"error": "No files found in the repository", "valid": False}
         
         # Chunk the code
         chunker = CodeChunker()
