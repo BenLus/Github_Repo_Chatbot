@@ -1,130 +1,3 @@
-<!-- GitHub RAG Application
-A modular, production-ready Retrieval-Augmented Generation (RAG) system that takes a GitHub repository as input, extracts and embeds its code, stores embeddings in ChromaDB, and provides a Streamlit-based chat interface powered by GPT-4o mini and orchestrated with LangGraph agent workflows.
-
-Table of Contents
-Overview
-
-Features
-
-Architecture
-
-Installation
-
-Configuration
-
-Usage
-
-Project Structure
-
-Contributing
-
-License
-
-Overview
-This project enables users to interactively query any public GitHub repository using a Retrieval-Augmented Generation pipeline. It crawls the repository, chunks and embeds the code, stores embeddings in ChromaDB, and provides a chat interface for codebase Q&A using GPT-4o mini. The workflow is managed by LangGraph, ensuring robust, multi-step agentic processing.
-
-Features
-GitHub Repository Crawler: Extracts all code files from any public GitHub repository.
-
-Code Chunking: Splits code into manageable, token-limited chunks for efficient embedding and retrieval.
-
-OpenAI Embeddings: Generates vector embeddings for code using OpenAI’s latest models.
-
-ChromaDB Vector Store: Stores and retrieves code embeddings for fast, semantic search.
-
-Streamlit UI: User-friendly interface for repository input and chat-based code exploration.
-
-LangGraph Agent Workflow: Modular, agentic pipeline for validation, processing, and chat.
-
-Supports GPT-4o mini: Leverages state-of-the-art LLM for accurate, context-aware answers.
-
-Architecture
-Streamlit Frontend: Collects GitHub repo URL, displays progress, and provides a chat interface.
-
-LangGraph Agent: Orchestrates the workflow: URL validation → repo crawling → chunking → embedding → storage → chat.
-
-ChromaDB: Stores code embeddings and supports similarity search for RAG.
-
-OpenAI API: Generates embeddings and answers user queries with GPT-4o mini.
-
-Installation
-Clone the repository:
-
-bash
-git clone https://github.com/yourusername/rag_github_app.git
-cd rag_github_app
-Install dependencies:
-
-bash
-pip install -r requirements.txt
-Set up environment variables:
-
-Create a .env file in the project root with the following:
-
-text
-OPENAI_API_KEY=your_openai_api_key
-GITHUB_TOKEN=your_github_token  # Optional, for higher rate limits
-CHROMA_DB_DIR=./chroma_db
-Configuration
-OpenAI API Key: Required for embeddings and chat.
-
-GitHub Token: Optional but recommended for higher API rate limits.
-
-ChromaDB Directory: Path for persistent vector storage.
-
-Usage
-Start the Streamlit app:
-
-bash
-streamlit run app/main.py
-Workflow:
-
-Enter a GitHub repository URL in the input field.
-
-The app validates the URL, crawls the repo, chunks and embeds code, and indexes it in ChromaDB.
-
-Once processing is complete, use the chat interface to ask questions about the codebase.
-
-The system retrieves relevant code chunks and generates answers using GPT-4o mini.
-
-Project Structure
-text
-rag_github_app/
-│
-├── app/
-│   ├── __init__.py
-│   ├── main.py            # Streamlit UI
-│   ├── settings.py        # .env and config
-│   ├── repo_crawler.py    # GitHub crawling
-│   ├── chunker.py         # Code chunking
-│   ├── embedder.py        # Embedding logic
-│   ├── vector_store.py    # ChromaDB interface
-│   ├── agent.py           # LangGraph agent
-│   └── utils.py           # Helpers
-│
-├── tests/
-│   ├── __init__.py
-│   └── test_app.py
-│
-├── requirements.txt
-├── .env
-├── README.md
-└── LICENSE
-Each module is isolated for clarity and extensibility.
-
-Contributing
-Contributions are welcome! Please open issues or submit pull requests for bug fixes, improvements, or new features. Ensure your code is well-documented and tested.
-
-License
-This project is licensed under the MIT License. See the LICENSE file for details.
-
-Acknowledgments
-Inspired by best practices in RAG, LangGraph, and Streamlit agentic workflows.
-
-See related projects and guides for further reading.
- -->
-
-
 # Github Repo Chatbot
 
 A conversational Retrieval-Augmented Generation (RAG) system that transforms any GitHub repository into an intelligent chatbot. Built with LangGraph workflows, ChromaDB vector storage, and GPT-4o mini for natural conversations about codebases.
@@ -134,7 +7,7 @@ A conversational Retrieval-Augmented Generation (RAG) system that transforms any
 ### Core Capabilities
 - **Intelligent Repository Processing**: Automatically crawls, analyzes, and indexes any public GitHub repository
 - **Conversational Interface**: Persistent chat sessions with full conversation history and context awareness
-- **Smart Code Retrieval**: Semantic search through code using vector embeddings for accurate context
+- **Code Retrieval**: Semantic search through code using vector embeddings for accurate context
 - **Real-time Processing**: Live status updates and error handling during repository processing
 - **Multi-turn Conversations**: Ask follow-up questions with maintained conversation context
 
@@ -142,39 +15,44 @@ A conversational Retrieval-Augmented Generation (RAG) system that transforms any
 - **LangGraph Agent Orchestration**: Robust, multi-step agentic workflows with conditional routing
 - **ChromaDB Vector Storage**: High-performance vector database for semantic code search
 - **OpenAI Integration**: Latest embedding models and GPT-4o mini for intelligent responses
-- **Streamlit UI**: Professional, responsive interface with sidebar management and real-time updates
+- **Streamlit UI**: Responsive interface with sidebar management and real-time updates
 - **Error Recovery**: Comprehensive error handling with user-friendly messages and retry options
 
-## 🏗️ Architecture
+## 🏗️ Workflow
 
-```
-┌─────────────────┐    ┌──────────────────┐    ┌─────────────────────┐
-│   Streamlit UI  │───▶│  LangGraph Agent │───▶│    ChromaDB Store   │
-│                 │    │                  │    │                     │
-│ • Repository    │    │ • URL Validation │    │ • Vector Embeddings │
-│   Management    │    │ • Code Processing│    │ • Semantic Search   │
-│ • Chat Interface│    │ • Chat Handling  │    │ • Persistent Storage│
-│ • Status Updates│    │ • Error Recovery │    │                     │
-└─────────────────┘    └──────────────────┘    └─────────────────────┘
-         │                        │                         │
-         └────────────────────────┼─────────────────────────┘
-                                  ▼
-                        ┌──────────────────┐
-                        │   OpenAI API     │
-                        │                  │
-                        │ • Code Embeddings│
-                        │ • GPT-4o Mini    │
-                        │ • Context-Aware  │
-                        │   Responses      │
-                        └──────────────────┘
-```
+![Workflow Diagram](https://github.com/BenLus/Github_Repo_Chatbot/assets/170586907/8a123456-7890-1234-5678-90abcdef1234)
 
-### Workflow Components
 
-1. **Streamlit Frontend**: Modern UI with sidebar controls, real-time status, and persistent chat
-2. **LangGraph Agent**: Orchestrates validation → processing → chat with smart routing
-3. **ChromaDB Vector Store**: Stores and retrieves code embeddings for semantic search
-4. **OpenAI Integration**: Generates embeddings and provides intelligent, context-aware responses
+## 🔧 How It Works
+
+### RAG Pipeline Architecture
+
+This system implements a multi-stage RAG pipeline optimized for code understanding and retrieval. The architecture follows modern agentic workflow patterns with state management and conditional routing.
+
+#### 1. **Repository Ingestion**
+- URL validation with regex pattern matching for GitHub repository extraction
+- GitHub API integration with tree endpoint for comprehensive file discovery
+
+#### 2. **Content Preprocessing**
+- Token-aware chunking using OpenAI's `o200k_base` tokenizer for GPT-4o mini compatibility
+- Sliding window approach with configurable overlap to preserve semantic continuity
+- Metadata preservation including file paths, line ranges, and repository context
+
+#### 3. **Vector Embedding Pipeline**
+- Batch processing through OpenAI's `text-embedding-3-small` model (1536-dimensional vectors)
+- Optimized API utilization with configurable batch sizes for cost efficiency
+- Semantic encoding of code semantics, syntax patterns, and contextual relationships
+
+#### 4. **Vector Storage & Indexing**
+- ChromaDB integration with persistent storage for production scalability
+- Sanitized collection naming with deterministic ID generation for deduplication
+- Similarity search capabilities using cosine distance for semantic retrieval
+
+#### 5. **Conversational RAG Interface**
+- Query embedding generation with identical model consistency for retrieval accuracy
+- Top-k similarity search with configurable retrieval parameters
+- Context assembly combining retrieved chunks with conversation history for multi-turn coherence
+- GPT-4o mini inference with carefully engineered prompts for code-specific responses
 
 ## 📦 Installation
 
