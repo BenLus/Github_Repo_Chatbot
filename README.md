@@ -20,7 +20,7 @@ A conversational Retrieval-Augmented Generation (RAG) system that transforms any
 
 ## 🏗️ Workflow
 
-![Workflow Diagram](https://github.com/BenLus/Github_Repo_Chatbot/assets/170586907/8a123456-7890-1234-5678-90abcdef1234)
+![langgraph_workflow](https://github.com/user-attachments/assets/d2998fed-1769-4951-9a22-0a243ebd5205)
 
 
 ## 🔧 How It Works
